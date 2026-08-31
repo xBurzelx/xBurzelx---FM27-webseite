@@ -7,13 +7,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
-  <!-- Weltkarte / Karriere-Stationen -->
-  <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center my-6">
-    <h2 class="text-2xl font-bold text-[#e5c158] mb-1">Meine Karriere-Stationen</h2>
-    <p class="text-zinc-400 text-sm mb-4">Interaktive Übersicht aller Vereinsstationen im FM27</p>
+  <!-- Weltkarte / Karriere-Stationen Box -->
+  <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 my-6 shadow-2xl" style="text-align: center;">
+    
+    <!-- Zentrierter & aufgehübschter Bereich über der Karte -->
+    <div style="margin-bottom: 1.25rem; text-align: center;">
+      <h2 style="color: #e5c158; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.35rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">
+        <span>📍</span> Meine Karriere-Stationen
+      </h2>
+      <p style="color: #a1a1aa; font-size: 0.875rem; margin: 0;">
+        Interaktive Übersicht aller Vereinsstationen im FM27
+      </p>
+    </div>
 
     <!-- Karten-Container -->
     <div id="map" style="height: 400px; width: 100%; min-height: 400px;" class="rounded-lg border border-zinc-800 relative z-0"></div>
+
   </div>
 
   <!-- Leaflet JS -->
