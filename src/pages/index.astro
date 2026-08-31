@@ -36,42 +36,38 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         maxZoom: 16
       }).addTo(map);
 
-      function createPinIcon(color) {
-        const svg = `
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${color}" width="32" height="32" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.6));">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" stroke="#18181b" stroke-width="1.5"/>
-          </svg>
-        `;
+      function createFlagIcon(countryCode) {
+        // Verwendet kostenlose ISO-Flaggen (z. B. 'in' für Indien, 'sn' für Senegal, 'br' für Brasilien)
+        const flagUrl = `https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`;
+        
         return L.divIcon({
-          className: 'custom-pin',
-          html: svg,
-          iconSize: [32, 32],
-          iconAnchor: [16, 32],
-          popupAnchor: [0, -32]
+          className: 'custom-flag-pin',
+          html: `<img src="${flagUrl}" style="width: 32px; height: 22px; border-radius: 3px; box-shadow: 0 3px 8px rgba(0,0,0,0.8); border: 1px solid #52525b; object-fit: cover;" />`,
+          iconSize: [32, 22],
+          iconAnchor: [16, 11],
+          popupAnchor: [0, -12]
         });
       }
 
-      const goldPin = createPinIcon('#e5c158');
-
+      // In deinem stationen-Array einfach den ISO-Ländercode (country) mitgeben:
       const stationen = [
         {
           name: "Zielgebiet: Indien",
-          verein: "Auf Vereinssuche",
-          logo: "", // Leer lassen, solange du noch keinen Verein hast
+          country: "in", // ISO-Code für Indien
           lat: 20.5937,
           lng: 78.9629,
           status: "Auf Vereinssuche",
           saison: "Start 2026/27"
-        },
-      
-      
+        }
+      ];
 
-
-
-
-
-
-    ];
+      stationen.forEach(st => {
+        const flagPin = createFlagIcon(st.country);
+        
+        L.marker([st.lat, st.lng], { icon: flagPin })
+          .addTo(map)
+          .bindPopup(`<b>${st.name}</b><br>${st.status}`);
+      });
 
       stationen.forEach(st => {
         L.marker([st.lat, st.lng], { icon: goldPin })
