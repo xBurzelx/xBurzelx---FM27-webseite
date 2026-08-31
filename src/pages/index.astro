@@ -54,15 +54,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       const goldPin = createPinIcon('#e5c158');
 
       const stationen = [
-        {
-          name: "Zielgebiet: Indien",
-          lat: 20.5937,
-          lng: 78.9629,
-          status: "Auf Vereinssuche",
-          saison: "Start 2026/27",
-          isCurrent: true
-        }
-      ];
+      {
+        name: "Zielgebiet: Indien",
+        lat: 20.5937,
+        lng: 78.9629,
+        status: "Auf Vereinssuche",
+        saison: "Start 2026/27"
+      },
+      
+      <!-- Hier kommen die nächsten stationen 
+      
+      {
+        name: "Dein neuer Club",
+        lat: 19.0760, // Beispiel Mumbai
+        lng: 72.8777,
+        status: "Cheftrainer",
+        saison: "2026/27"
+      }
+      
+      -->
+
+    ];
 
       stationen.forEach(st => {
         L.marker([st.lat, st.lng], { icon: goldPin })
