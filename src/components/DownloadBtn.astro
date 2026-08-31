@@ -1,0 +1,25 @@
+---
+interface Props {
+  file: string;
+  label?: string;
+  icon?: string;
+}
+
+const { file, label = "Datei herunterladen", icon = "💾" } = Astro.props;
+
+const baseUrl = import.meta.env.BASE_URL;
+const cleanBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+const cleanFile = file.startsWith('/') ? file.slice(1) : file;
+
+const finalPath = encodeURI(`${cleanBase}downloads/${cleanFile}`);
+---
+
+<a 
+  href={finalPath} 
+  download 
+  class="btn-primary"
+  style="display: flex; justify-content: center; align-items: center; gap: 0.5rem; text-decoration: none; width: 100%;"
+>
+  <span>{icon}</span>
+  <span>{label}</span>
+</a>

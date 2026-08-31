@@ -1,0 +1,122 @@
+:root {
+  --bg-color: #0a0a0a;             /* Tiefschwarz */
+  --primary-color: #4169e1;        /* Königsblau */
+  --accent-color: #ff1dce;         /* Heißes Magenta */
+  --highlight-color: #ffdf00;      /* Goldgelb */
+  --text-color: #ffffff;           /* Weiß */
+  --text-secondary: #cfcfcf;       /* Hellgrau */
+
+  /* Ergänzende Layout-Farben */
+  --bg-card: #141419;
+  --border-color: #27272a;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header & Navigation */
+.site-header {
+  background-color: #000000;
+  border-bottom: 2px solid var(--primary-color); /* Königsblaue Akzentlinie */
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-title {
+  color: var(--highlight-color);
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.brand-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.brand-subtitle span {
+  color: var(--primary-color); /* xBurzelx in Königsblau */
+  font-style: italic;
+  font-weight: 700;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding-bottom: 4px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+/* Aktiver Link leuchtet in Magenta */
+.nav-links a:hover, .nav-links a.active {
+  color: var(--accent-color);
+  border-bottom: 2px solid var(--accent-color);
+}
+
+/* Layout Container & Cards */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.section-title {
+  color: var(--highlight-color);
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: border-color 0.2s;
+}
+
+.card:hover {
+  border-color: var(--primary-color); /* Card-Border wird blau bei Hover */
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
+  transition: filter 0.2s;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.2);
+}

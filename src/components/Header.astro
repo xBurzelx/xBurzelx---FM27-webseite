@@ -1,0 +1,30 @@
+---
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<header class="site-header">
+  <div style="display: flex; align-items: center; gap: 1rem;">
+    <div>
+      <h1 class="brand-title">Football Manager 27</h1>
+      <p class="brand-subtitle">eine Trainerstory & Hub <span>by xBurzelx</span></p>
+    </div>
+  </div>
+  <nav>
+    <ul class="nav-links">
+      <li>
+        <a 
+          href="https://www.instant-gaming.com/de/20416-kaufen-football-manager-26-pc-mac-steam/?igr=Burzel" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          style="background: #ff6400; color: #020202; padding: 0.3rem 0.8rem; border-radius: 4px; font-size: 0.85rem;"
+        >
+          🛒 Instant Gaming
+        </a>
+      </li>
+      <li><a href={baseUrl} class="active">🏠 Start</a></li>
+      <li><a href={`${baseUrl}/stories`}>📜 Story</a></li>
+      <li><a href={`${baseUrl}/downloads`}>💾 Downloads</a></li>
+      <li><a href={`${baseUrl}/links`}>🌐 Community & Links</a></li>
+    </ul>
+  </nav>
+</header>

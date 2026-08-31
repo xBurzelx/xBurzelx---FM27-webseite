@@ -1,0 +1,17 @@
+# Build Output
+dist/
+.astro/
+
+# Dependencies
+node_modules/
+
+# Environment Variables & Logs
+.env
+.env.*
+*.log
+
+# System & Editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/settings.json

@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+const baseUrl = import.meta.env.BASE_URL;
+
+// Teile dieser speziellen Saison
+const parts = [
+  {
+    partNumber: "Teil 1",
+    title: "Auf Jobsuche – Das erste Angebot",
+    date: "August 2026",
+    summary: "Erstellung des Manager-Profils, Lizenzwahl und die ersten Gespräche mit interessierten Vereinen.",
+    slug: "teil-1"
+  },
+  {
+    partNumber: "Teil 2",
+    title: "Die Hinrunde im Check",
+    date: "Dezember 2026",
+    summary: "Erste Ergebnisse mit der Mannschaft, Taktik-Anpassungen und Vorbereitung auf den Winter-Transfermarkt.",
+    slug: "teil-2"
+  }
+];
+---
+
+<BaseLayout title="FM27 Hub | Saison 01 Overview">
+  
+  <div style="margin-bottom: 1.5rem;">
+    <a href={`${baseUrl}/stories`} style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">
+      ← Zurück zur Saison-Übersicht
+    </a>
+  </div>
+
+  <h2 class="section-title">📅 Saison 01 (2026/27)</h2>
+  <p style="text-align: center; color: var(--text-secondary); margin-top: -1.5rem; margin-bottom: 2.5rem;">
+    Alle Kapitel und Spielberichte der 1. Saison.
+  </p>
+
+  <!-- TEILE-LISTE -->
+  <div style="display: flex; flex-direction: column; gap: 1.2rem; max-width: 800px; margin: 0 auto;">
+    {parts.map((part) => (
+      <div class="card" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.3rem;">
+            <strong style="color: var(--primary-color); font-size: 0.85rem;">{part.partNumber}</strong>
+            <span style="color: var(--text-secondary); font-size: 0.8rem;">• {part.date}</span>
+          </div>
+          <h3 style="margin: 0 0 0.4rem 0; color: var(--highlight-color); font-size: 1.1rem;">{part.title}</h3>
+          <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;">{part.summary}</p>
+        </div>
+
+        <a 
+          href={`${baseUrl}/stories/saison-01/${part.slug}`} 
+          class="btn-primary" 
+          style="padding: 0.4rem 1rem; font-size: 0.85rem;"
+        >
+          📖 Lesen ↗
+        </a>
+      </div>
+    ))}
+  </div>
+
+</BaseLayout>

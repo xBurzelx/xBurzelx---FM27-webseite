@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const baseUrl = import.meta.env.BASE_URL;
+
+// Hier trägst du nach jeder Saison eine neue Kachel ein
+const seasons = [
+  {
+    id: "saison-02",
+    title: "Saison 02",
+    years: "2027/28",
+    club: "Noch offen...",
+    status: "In Planung",
+    badge: "Demnächst",
+    achievements: "—",
+    partsCount: 0
+  },
+  {
+    id: "saison-01",
+    title: "Saison 01",
+    years: "2026/27",
+    club: "Arbeitslos / FC Unbekannt",
+    status: "Aktiv",
+    badge: "Aktuelle Saison",
+    achievements: "Jobsuche & Klassenerhalt",
+    partsCount: 3
+  }
+];
+---
+
+<BaseLayout title="FM27 Hub | Manager-Karriere">
+  
+  <h2 class="section-title">📖 Manager-Karriere</h2>
+  <p style="text-align: center; color: var(--text-secondary); margin-top: -1.5rem; margin-bottom: 2.5rem;">
+    Wähle eine Spielzeit aus, um alle Berichte und Highlights zu lesen.
+  </p>
+
+  <!-- KACHEL GRID -->
+  <div class="card-grid">
+    {seasons.map((season) => (
+      <div class="card" style="display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+        <div>
+          <!-- BADGE (Status) -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+            <span style="background: var(--primary-color); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 4px;">
+              {season.badge}
+            </span>
+            <span style="color: var(--text-secondary); font-size: 0.85rem;">{season.years}</span>
+          </div>
+
+          <!-- TITEL & VEREIN -->
+          <h3 style="color: var(--highlight-color); margin: 0 0 0.3rem 0; font-size: 1.4rem;">
+            {season.title}
+          </h3>
+          <p style="color: #fff; font-weight: 600; margin: 0 0 1rem 0; font-size: 1rem;">
+            ⚽ {season.club}
+          </p>
+
+          <!-- ERFOLGE & ANZAHL TEILE -->
+          <div style="background: rgba(0,0,0,0.25); padding: 0.8rem; border-radius: 6px; margin-bottom: 1.5rem; font-size: 0.85rem;">
+            <div style="margin-bottom: 0.4rem; color: var(--text-secondary);">
+              🏆 <strong>Erfolge:</strong> <span style="color: var(--text-primary);">{season.achievements}</span>
+            </div>
+            <div style="color: var(--text-secondary);">
+              📝 <strong>Berichte:</strong> <span style="color: var(--text-primary);">{season.partsCount} Teile</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- LINK ZUR SAISON-ÜBERSICHT -->
+        <a 
+          href={`${baseUrl}/stories/${season.id}`} 
+          class="btn-primary" 
+          style="text-align: center; width: 100%; box-sizing: border-box;"
+        >
+          📂 Saison öffnen ↗
+        </a>
+      </div>
+    ))}
+  </div>
+
+</BaseLayout>
