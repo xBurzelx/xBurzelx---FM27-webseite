@@ -1,5 +1,19 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Deine aktuellen Karriere-Stats (hier einfach nach den Spielen die Zahlen anpassen)
+const stats = {
+  spiele: 0,
+  siege: 0,
+  remis: 0,
+  niederlagen: 0,
+  tore: 0,
+};
+
+// Automatische Berechnung der Siegquote
+const winRate = stats.spiele > 0 
+  ? Math.round((stats.siege / stats.spiele) * 100) 
+  : 0;
 ---
 
 <BaseLayout title="FM27 Hub | Startseite">
@@ -7,10 +21,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
-  <!-- Weltkarte / Karriere-Stationen Box -->
+  <!-- 1. WELTKARTE / KARRIERE-STATIONEN -->
   <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 my-6 shadow-2xl" style="text-align: center;">
-    
-    <!-- Zentrierter & aufgehübschter Bereich über der Karte -->
     <div style="margin-bottom: 1.25rem; text-align: center;">
       <h2 style="color: #e5c158; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.35rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">
         <span>📍</span> Meine Karriere-Stationen
@@ -20,25 +32,126 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </p>
     </div>
 
-    <!-- Karten-Container -->
     <div id="map" style="height: 400px; width: 100%; min-height: 400px;" class="rounded-lg border border-zinc-800 relative z-0"></div>
-
   </div>
 
-  <!-- Leaflet JS -->
-  <script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- 2. KARRIERE-BILANZ BANNER -->
+  <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 my-6 shadow-2xl">
+    <div style="margin-bottom: 1.25rem; text-align: center;">
+      <h2 style="color: #e5c158; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.35rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">
+        <span>📊</span> Karriere-Bilanz
+      </h2>
+      <p style="color: #a1a1aa; font-size: 0.875rem; margin: 0;">
+        Gesamtstatistik aller absolvierten Pflichtspiele
+      </p>
+    </div>
 
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-center">
+      <div class="bg-zinc-950/80 border border-zinc-800/80 rounded-lg p-3">
+        <span class="block text-[11px] uppercase tracking-wider text-zinc-400 font-semibold mb-1">Spiele</span>
+        <span class="text-2xl font-black text-white">{stats.spiele}</span>
+      </div>
+
+      <div class="bg-zinc-950/80 border border-emerald-500/30 rounded-lg p-3">
+        <span class="block text-[11px] uppercase tracking-wider text-emerald-400 font-semibold mb-1">Siege</span>
+        <span class="text-2xl font-black text-emerald-400">{stats.siege}</span>
+      </div>
+
+      <div class="bg-zinc-950/80 border border-amber-500/30 rounded-lg p-3">
+        <span class="block text-[11px] uppercase tracking-wider text-amber-400 font-semibold mb-1">Remis</span>
+        <span class="text-2xl font-black text-amber-400">{stats.remis}</span>
+      </div>
+
+      <div class="bg-zinc-950/80 border border-rose-500/30 rounded-lg p-3">
+        <span class="block text-[11px] uppercase tracking-wider text-rose-400 font-semibold mb-1">Niederlagen</span>
+        <span class="text-2xl font-black text-rose-400">{stats.niederlagen}</span>
+      </div>
+
+      <div class="bg-zinc-950/80 border border-zinc-800/80 rounded-lg p-3">
+        <span class="block text-[11px] uppercase tracking-wider text-zinc-400 font-semibold mb-1">Tore</span>
+        <span class="text-2xl font-black text-white">{stats.tore}</span>
+      </div>
+
+      <div class="bg-zinc-950/80 border border-[#e5c158]/40 rounded-lg p-3">
+        <span class="block text-[11px] uppercase tracking-wider text-[#e5c158] font-semibold mb-1">Siegquote</span>
+        <span class="text-2xl font-black text-[#e5c158]">{winRate}%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. TROPHÄENSCHRANK SECTION -->
+  <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 my-6 shadow-2xl">
+    <div style="margin-bottom: 1.25rem; text-align: center;">
+      <h2 style="color: #e5c158; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.35rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">
+        <span>🏆</span> Trophäenschrank
+      </h2>
+      <p style="color: #a1a1aa; font-size: 0.875rem; margin: 0;">
+        Alle errungenen Titel und Meilensteine deiner Manager-Karriere
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="bg-zinc-950/80 border border-[#e5c158]/40 rounded-xl p-4 flex items-center gap-4 shadow-lg relative overflow-hidden">
+        <div class="text-3xl p-3 bg-[#e5c158]/10 rounded-lg border border-[#e5c158]/20 flex items-center justify-center">
+          🏆
+        </div>
+        <div>
+          <h3 class="font-bold text-[#e5c158] text-base leading-tight">Indian Super League</h3>
+          <p class="text-xs text-zinc-400 mt-1">Saison 2026/27</p>
+          <span class="inline-block mt-2 px-2.5 py-0.5 text-[11px] font-semibold bg-[#e5c158]/20 text-[#e5c158] rounded-full border border-[#e5c158]/30">
+            Meister
+          </span>
+        </div>
+      </div>
+
+      <div class="bg-zinc-950/30 border border-zinc-800/60 rounded-xl p-4 flex items-center gap-4 opacity-40 grayscale hover:opacity-75 transition-all">
+        <div class="text-3xl p-3 bg-zinc-800/40 rounded-lg border border-zinc-700/30 flex items-center justify-center">
+          🔒
+        </div>
+        <div>
+          <h3 class="font-bold text-zinc-400 text-base leading-tight">Nationaler Pokal</h3>
+          <p class="text-xs text-zinc-500 mt-1">Ausstehend</p>
+          <span class="inline-block mt-2 px-2.5 py-0.5 text-[11px] font-semibold bg-zinc-800 text-zinc-500 rounded-full border border-zinc-700">
+            Gesperrt
+          </span>
+        </div>
+      </div>
+
+      <div class="bg-zinc-950/30 border border-zinc-800/60 rounded-xl p-4 flex items-center gap-4 opacity-40 grayscale hover:opacity-75 transition-all">
+        <div class="text-3xl p-3 bg-zinc-800/40 rounded-lg border border-zinc-700/30 flex items-center justify-center">
+          🔒
+        </div>
+        <div>
+          <h3 class="font-bold text-zinc-400 text-base leading-tight">Continental Champions League</h3>
+          <p class="text-xs text-zinc-500 mt-1">Ausstehend</p>
+          <span class="inline-block mt-2 px-2.5 py-0.5 text-[11px] font-semibold bg-zinc-800 text-zinc-500 rounded-full border border-zinc-700">
+            Gesperrt
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. DOWNLOADS CARD -->
+  <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 my-6 shadow-2xl">
+    <div style="margin-bottom: 1rem; text-align: center;">
+      <h2 style="color: #e5c158; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.35rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">
+        <span>🎨</span> Downloads & Files
+      </h2>
+      <p style="color: #a1a1aa; font-size: 0.875rem; margin: 0;">
+        Medienpaket, Taktiken, Real-Name-Fixes (`.lnc`), Trainingspläne uvm.
+      </p>
+    </div>
+  </div>
+
+  <!-- Leaflet JS & Map Init -->
+  <script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script is:inline>
     function renderMap() {
       const mapContainer = document.getElementById('map');
-      if (!mapContainer || typeof L === 'undefined') return;
-      
-      // Verhindert doppeltes Initialisieren
-      if (mapContainer._leaflet_id) return;
+      if (!mapContainer || typeof L === 'undefined' || mapContainer._leaflet_id) return;
 
-      const map = L.map('map', {
-        scrollWheelZoom: false
-      }).setView([20.5937, 78.9629], 5);
+      const map = L.map('map', { scrollWheelZoom: false }).setView([20.5937, 78.9629], 5);
 
       L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
@@ -46,9 +159,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       }).addTo(map);
 
       function createFlagIcon(countryCode) {
-        // Verwendet kostenlose ISO-Flaggen (z. B. 'in' für Indien, 'sn' für Senegal, 'br' für Brasilien)
         const flagUrl = `https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`;
-        
         return L.divIcon({
           className: 'custom-flag-pin',
           html: `<img src="${flagUrl}" style="width: 32px; height: 22px; border-radius: 3px; box-shadow: 0 3px 8px rgba(0,0,0,0.8); border: 1px solid #52525b; object-fit: cover;" />`,
@@ -58,11 +169,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         });
       }
 
-      // In deinem stationen-Array einfach den ISO-Ländercode (country) mitgeben:
       const stationen = [
         {
           name: "Zielgebiet: Indien",
-          country: "in", // ISO-Code für Indien
+          country: "in",
           lat: 20.5937,
           lng: 78.9629,
           status: "Auf Vereinssuche",
@@ -72,28 +182,31 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
       stationen.forEach(st => {
         const flagPin = createFlagIcon(st.country);
-        
         L.marker([st.lat, st.lng], { icon: flagPin })
           .addTo(map)
-          .bindPopup(`<b>${st.name}</b><br>${st.status}`);
-      });
-
-      stationen.forEach(st => {
-        L.marker([st.lat, st.lng], { icon: goldPin })
-          .addTo(map)
           .bindPopup(`
-            <div style="color: #111; font-family: sans-serif;">
-              <strong style="font-size: 1.1em;">${st.name}</strong><br>
-              <span style="color: #4169e1; font-weight: bold;">${st.status}</span><br>
-              <small><b>Saison:</b> ${st.saison}</small>
+            <div style="color: #111; font-family: sans-serif; text-align: center; min-width: 140px;">
+              <strong style="font-size: 1.1em; display: block;">${st.name}</strong>
+              <span style="color: #b45309; font-weight: bold; display: block; margin: 3px 0;">${st.status}</span>
+              <small style="color: #555;"><b>Saison:</b> ${st.saison}</small>
             </div>
           `);
       });
 
+      const routePoints = stationen.map(st => [st.lat, st.lng]);
+      if (routePoints.length > 1) {
+        L.polyline(routePoints, {
+          color: '#e5c158',
+          weight: 3,
+          opacity: 0.8,
+          dashArray: '8, 8',
+          lineJoin: 'round'
+        }).addTo(map);
+      }
+
       setTimeout(() => { map.invalidateSize(); }, 200);
     }
 
-    // Garantiert die Ausführung in Astro (egal ob DOM schon geladen ist oder nicht)
     if (document.readyState === 'complete' || document.readyState === 'interactive') {
       renderMap();
     } else {
@@ -101,22 +214,5 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     }
     document.addEventListener('astro:page-load', renderMap);
   </script>
-
-  <h2 class="section-title">Die Reise beginnt</h2>
-
-  <div class="card-grid">
-    <div class="card">
-      <h3>📖 Neue Trainerstory</h3>
-      <p>kommt noch</p>
-    </div>
-    <div class="card">
-      <h3>Erfolge</h3>
-      <p>kommt noch</p>
-    </div>
-    <div class="card">
-      <h3>🎨 alles was ich zum download habe </h3>
-      <p>Medienpaket, taktiken, Real-Name-Fixes (`.lnc`) training usw.</p>
-    </div>
-  </div>
 
 </BaseLayout>
