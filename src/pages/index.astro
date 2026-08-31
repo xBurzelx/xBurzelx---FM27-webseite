@@ -19,38 +19,71 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <script is:inline>
     document.addEventListener('DOMContentLoaded', () => {
-      // Karte initialisieren (Startposition Europa, Zoomstufe 4)
-      const map = L.map('map').setView([50.8322, 12.9253], 4);
+      // Karte auf Indien zentrieren (Zoomstufe 5), scrollWheelZoom deaktiviert für bessere Mobile-Nutzung
+      const map = L.map('map', {
+        scrollWheelZoom: false
+      }).setView([20.5937, 78.9629], 5);
 
-      // Dunkle Kartenebene einbinden
+      // Dunkle Kartenebene (CartoDB Dark Matter)
       L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; OpenStreetMap &copy; CARTO',
         subdomains: 'abcd',
         maxZoom: 19
       }).addTo(map);
 
+      // --- Funktion zum Erstellen farbiger SVG-Pins ---
+      function createPinIcon(color) {
+        const svg = `
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${color}" width="32" height="32" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.6));">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" stroke="#18181b" stroke-width="1.5"/>
+          </svg>
+        `;
+        return L.divIcon({
+          className: 'custom-pin',
+          html: svg,
+          iconSize: [32, 32],
+          iconAnchor: [16, 32],   // Spitze des Pins genau auf die Koordinaten setzen
+          popupAnchor: [0, -32]   // Popup öffnet sich oberhalb des Pins
+        });
+      }
 
-      //
-      // Liste deiner Trainer-Stationen (Koordinaten: Latitude, Longitude)
-      //
-
+      // Pins in Gold (aktuell) und Grau (ehemalig) definieren
+      const goldPin = createPinIcon('#e5c158');
+      const greyPin = createPinIcon('#71717a');
+      // --- Liste meiner Stationen ---
+      // Mit "isCurrent: true" wählst du aus, wer das goldene Icon bekommt
       const stationen = [
-        { name: "Chemnitzer FC", lat: 50.8322, lng: 12.9253, status: "Aktueller Verein", saison: "2026/27" },
-        // Hier kannst du zukünftig weitere Vereine anhängen:
-        // { name: "Real Madrid", lat: 40.4531, lng: -3.6883, status: "Ehemalige Station", saison: "2028/29" },
+        {
+          name: "Aizawl FC",
+          lat: 23.7271,
+          lng: 92.7176,
+          status: "Aktueller Verein",
+          saison: "2026/27",
+          isCurrent: true
+        },
+        {
+          name: "Test-Klub (Beispiel)",
+          lat: 15.2993,
+          lng: 74.1240,
+          status: "Ehemalige Station",
+          saison: "2025/26",
+          isCurrent: false
+        }
       ];
 
-      // Marker für jede Station hinzufügen
+      // Marker auf der Karte platzieren
       stationen.forEach(st => {
-        L.marker([st.lat, st.lng])
-          .addTo(map)
-          .bindPopup(`
-            <div style="color: #111; font-family: sans-serif;">
-              <strong style="font-size: 1.1em;">${st.name}</strong><br>
-              <span style="color: #555;">${st.status}</span><br>
-              <small><b>Saison:</b> ${st.saison}</small>
-            </div>
-          `);
+        L.marker([st.lat, st.lng], {
+          icon: st.isCurrent ? goldPin : greyPin
+        })
+        .addTo(map)
+        .bindPopup(`
+          <div style="color: #111; font-family: sans-serif; line-height: 1.4;">
+            <strong style="font-size: 1.1em;">${st.name}</strong><br>
+            <span style="color: ${st.isCurrent ? '#b45309' : '#666'}; font-weight: bold;">${st.status}</span><br>
+            <small><b>Saison:</b> ${st.saison}</small>
+          </div>
+        `);
       });
     });
   </script>
