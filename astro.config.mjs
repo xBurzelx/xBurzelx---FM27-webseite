@@ -3,6 +3,6 @@ import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
   site: 'https://xburzelx.github.io',
-  base: '/football-manager-27',
+  base: '/xBurzelx---FM27-webseite',
   integrations: [tailwind()],
 });
