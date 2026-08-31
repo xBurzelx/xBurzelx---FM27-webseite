@@ -4,34 +4,39 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout title="FM27 Hub | Startseite">
   
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
   <!-- Weltkarte / Karriere-Stationen -->
   <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center my-6">
     <h2 class="text-2xl font-bold text-[#e5c158] mb-1">Meine Karriere-Stationen</h2>
     <p class="text-zinc-400 text-sm mb-4">Interaktive Übersicht aller Vereinsstationen im FM27</p>
 
     <!-- Karten-Container -->
-    <div id="map" class="w-full h-[400px] rounded-lg overflow-hidden border border-zinc-800 relative z-0"></div>
+    <div id="map" style="height: 400px; width: 100%; min-height: 400px;" class="rounded-lg border border-zinc-800 relative z-0"></div>
   </div>
 
-  <!-- Leaflet CSS & JS über CDN -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Leaflet JS -->
   <script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <script is:inline>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Karte auf Indien zentrieren (Zoomstufe 5), scrollWheelZoom deaktiviert für bessere Mobile-Nutzung
+    function renderMap() {
+      const mapContainer = document.getElementById('map');
+      if (!mapContainer || typeof L === 'undefined') return;
+      
+      // Verhindert doppeltes Initialisieren
+      if (mapContainer._leaflet_id) return;
+
       const map = L.map('map', {
         scrollWheelZoom: false
       }).setView([20.5937, 78.9629], 5);
 
-      // Dunkle Kartenebene (CartoDB Dark Matter)
       L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; OpenStreetMap &copy; CARTO',
         subdomains: 'abcd',
         maxZoom: 19
       }).addTo(map);
 
-      // --- Funktion zum Erstellen farbiger SVG-Pins ---
       function createPinIcon(color) {
         const svg = `
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${color}" width="32" height="32" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.6));">
@@ -42,50 +47,46 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           className: 'custom-pin',
           html: svg,
           iconSize: [32, 32],
-          iconAnchor: [16, 32],   // Spitze des Pins genau auf die Koordinaten setzen
-          popupAnchor: [0, -32]   // Popup öffnet sich oberhalb des Pins
+          iconAnchor: [16, 32],
+          popupAnchor: [0, -32]
         });
       }
 
-      // Pins in Gold (aktuell) und Grau (ehemalig) definieren
       const goldPin = createPinIcon('#e5c158');
-      const greyPin = createPinIcon('#71717a');
-      // --- Liste meiner Stationen ---
-      // Mit "isCurrent: true" wählst du aus, wer das goldene Icon bekommt
+
       const stationen = [
         {
-          name: "Aizawl FC",
-          lat: 23.7271,
-          lng: 92.7176,
-          status: "Aktueller Verein",
-          saison: "2026/27",
+          name: "Zielgebiet: Indien",
+          lat: 20.5937,
+          lng: 78.9629,
+          status: "Auf Vereinssuche",
+          saison: "Start 2026/27",
           isCurrent: true
-        },
-        {
-          name: "Test-Klub (Beispiel)",
-          lat: 15.2993,
-          lng: 74.1240,
-          status: "Ehemalige Station",
-          saison: "2025/26",
-          isCurrent: false
         }
       ];
 
-      // Marker auf der Karte platzieren
       stationen.forEach(st => {
-        L.marker([st.lat, st.lng], {
-          icon: st.isCurrent ? goldPin : greyPin
-        })
-        .addTo(map)
-        .bindPopup(`
-          <div style="color: #111; font-family: sans-serif; line-height: 1.4;">
-            <strong style="font-size: 1.1em;">${st.name}</strong><br>
-            <span style="color: ${st.isCurrent ? '#b45309' : '#666'}; font-weight: bold;">${st.status}</span><br>
-            <small><b>Saison:</b> ${st.saison}</small>
-          </div>
-        `);
+        L.marker([st.lat, st.lng], { icon: goldPin })
+          .addTo(map)
+          .bindPopup(`
+            <div style="color: #111; font-family: sans-serif;">
+              <strong style="font-size: 1.1em;">${st.name}</strong><br>
+              <span style="color: #b45309; font-weight: bold;">${st.status}</span><br>
+              <small><b>Saison:</b> ${st.saison}</small>
+            </div>
+          `);
       });
-    });
+
+      setTimeout(() => { map.invalidateSize(); }, 200);
+    }
+
+    // Garantiert die Ausführung in Astro (egal ob DOM schon geladen ist oder nicht)
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      renderMap();
+    } else {
+      document.addEventListener('DOMContentLoaded', renderMap);
+    }
+    document.addEventListener('astro:page-load', renderMap);
   </script>
 
   <h2 class="section-title">Die Reise beginnt</h2>
@@ -104,7 +105,5 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <p>Medienpaket, taktiken, Real-Name-Fixes (`.lnc`) training usw.</p>
     </div>
   </div>
-
-  
 
 </BaseLayout>
