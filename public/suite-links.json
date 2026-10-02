@@ -1,4 +1,5 @@
 {
+  "featured": { "title": "FM27 Hub", "text": "Trainerstory, Downloads und Community von xBurzelx", "url": "https://xburzelx.github.io/xBurzelx---FM27-webseite/" },
   "versions": [
     { "id": "FM26" },
     { "id": "FM27", "note": "Die FM27-Inhalte folgen nach dem Release am 10. November 2026." }
