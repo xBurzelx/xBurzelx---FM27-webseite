@@ -14,7 +14,15 @@
       {"name": "Standard-Routinen Set (.zip)", "url": "https://xburzelx.github.io/xBurzelx---FM27-webseite/downloads/set-pieces/xBurzelx_Standards.zip"}
     ]},
     { "name": "Trainingspläne", "color": "#ff4dff", "version": "FM26", "items": [
-      {"name": "xBurzelx Trainings-Set (.zip)", "url": "https://xburzelx.github.io/xBurzelx---FM27-webseite/downloads/training/xBurzelx_Trainingsplaene.zip"}
+      {"name": "xBurzelx Trainings-Set (.zip)", "desc": "Alle Trainingswochen kompakt in einem Zip-Archiv.", "url": "https://xburzelx.github.io/xBurzelx---FM27-webseite/downloads/training/xBurzelx_Trainingsplaene.zip"},
+      {"name": "xBurzelx FM26 Vorbereitung früh", "desc": "Saisonvorbereitung: Frühe Phase.", "url": "https://xburzelx.github.io/xBurzelx---FM27-webseite/downloads/training/xBurzelx%20FM26%20Vorbereitung%20fr%C3%BCh.fmf"},
+      {"name": "xBurzelx FM26 Vorbereitung Mitte", "desc": "Saisonvorbereitung: Mittlere Phase.", "url": "https://xburzelx.github.io/xBurzelx---FM27-webseite/downloads/training/xBurzelx%20FM26%20Vorbereitung%20Mitte.fmf"},
+      {"name": "xBurzelx FM26 Vorbereitung Spät", "desc": "Saisonvorbereitung: Späte Phase.", "url": "https://xburzelx.github.io/xBurzelx---FM27-webseite/downloads/training/xBurzelx%20FM26%20Vorbereitung%20Sp%C3%A4t.fmf"},
+      {"name": "xBurzelx Trainingswoche für Taktik und Teambuilding", "desc": "Fokus auf Taktikverständnis und Teamgeist.", "url": "https://xburzelx.github.io/xBurzelx---FM27-webseite/downloads/training/xBurzelx%20Trainingswoche%20f%C3%BCr%20Taktik%20und%20Teambuilding.fmf"},
+      {"name": "xBurzelx FM26 Di - Sa", "desc": "Trainingswoche für Spiele am Dienstag und Samstag.", "url": "https://xburzelx.github.io/xBurzelx---FM27-webseite/downloads/training/xBurzelx%20FM26%20Di%20-%20Sa%20.fmf"},
+      {"name": "xBurzelx FM26 Mi - Sa", "desc": "Trainingswoche für Spiele am Mittwoch und Samstag.", "url": "https://xburzelx.github.io/xBurzelx---FM27-webseite/downloads/training/xBurzelx%20FM26%20Mi%20-%20Sa.fmf"},
+      {"name": "xBurzelx FM26 Do - So", "desc": "Trainingswoche für Spiele am Donnerstag und Sonntag.", "url": "https://xburzelx.github.io/xBurzelx---FM27-webseite/downloads/training/xBurzelx%20FM26%20Do%20-%20So.fmf"},
+      {"name": "xBurzelx FM26 Sa", "desc": "Reguläre Wochentrainings für ein Spiel am Samstag.", "url": "https://xburzelx.github.io/xBurzelx---FM27-webseite/downloads/training/xBurzelx%20FM26%20Sa.fmf"}
     ]},
     { "name": "Medienpakete & Configs", "color": "#ffa600", "version": "FM26", "items": [
       {"name": "xBurzelx Medienpaket (.zip)", "url": "https://xburzelx.github.io/xBurzelx---FM27-webseite/downloads/configs/Medienpaket.zip"},
